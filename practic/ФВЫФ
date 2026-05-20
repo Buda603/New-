@@ -1,0 +1,71 @@
+<?php
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$db_name = 'db_Pakhutov';
+
+
+$conn = mysqli_connect($host, $user, $password, $db_name);
+
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    mysqli_query($conn, "DELETE FROM user WHERE id = $id");
+    header("Location: index.php");
+    exit();
+}
+
+if ($conn === false) {
+  die("Ошибка: " . mysqli_connect_error());
+} 
+echo "Подключение успешно установлено";
+
+if (isset($_POST['add'])) {
+    $n = $_POST['name'];
+    $l = $_POST['login'];
+    $b = $_POST['birthday'];
+    mysqli_query($conn, "INSERT INTO user (name, login, birthday) VALUES ('$n', '$l', '$b')");
+    header("Location: index.php");
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+</head>
+<body>
+
+<form method="POST">
+    <input type="text" name="name" placeholder="Имя" required>
+    <input type="text" name="login" placeholder="Логин" required>
+    <input type="date" name="birthday" required>
+    <input type="submit" name="add" value="Добавить">
+</form>
+
+    <h1>Пользователи</h1>
+
+    <?php
+$res = mysqli_query($conn, "SELECT * FROM user");
+$num = 1;
+
+while ($row = mysqli_fetch_assoc($res)) {
+    echo "<h2>Пользователь $num</h2>";
+    echo $row['name'] . "
+";
+    echo "Дата : " . $row['birthday'] . "  
+";
+    echo "lohin: " . $row['login'] . "
+";
+    echo "<a href='?delete_id=" . $row['id'] . "'>Удалить</a>";
+
+    $num++;
+
+}
+
+mysqli_close($conn);
+
+    ?>
+</body>
+</html>
