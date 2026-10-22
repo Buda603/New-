@@ -1,4 +1,5 @@
 <?php
+// возрат массива
 return [
     'site_name' => 'Бухгалтерия.ru',
     'debug'     => true,

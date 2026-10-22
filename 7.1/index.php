@@ -1,5 +1,7 @@
 <?php
+//подключаем файл
 require_once __DIR__ . '/src/index_init.php';
+//глобальный массив
 
 $pageTitle = $GLOBALS['page']['title'];
 require __DIR__ . '/src/header.php';
