@@ -1,14 +1,12 @@
 <?php
-require_once __DIR__ . '/src/init.php';   
 require_once __DIR__ . '/src/index_init.php';
 
-$pageTitle = 'Главная — Мой сайт';
+$pageTitle = $GLOBALS['page']['title'];
 require __DIR__ . '/src/header.php';
 ?>
 
 <section class="hero">
-    <h1>Добро пожаловать!</h1>
-    <p>Это главная страница сайта.</p>
+    <h1><?= htmlspecialchars($GLOBALS['page']['hero']) ?></h1>
 </section>
 
 <?php require __DIR__ . '/src/footer.php'; ?>
